@@ -11,6 +11,11 @@ body {
   color: #000;
 }
 
+/* Remove underlines from all links */
+a {
+  text-decoration: none;
+}
+
 /* Hero Section */
 .hero {
   display: flex;
@@ -70,10 +75,92 @@ body {
   overflow: hidden;
 }
 
+/* Video Container */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0d0d0d;
+}
+
 .hero-right video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hero-right video.loaded {
+  opacity: 1;
+}
+
+/* Video Loading State */
+.video-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.video-loading p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Video Error State */
+.video-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.video-error p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.retry-btn {
+  background: #0066ff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.retry-btn:hover {
+  background: #0052cc;
 }
 
 /* Call to Action Section */
@@ -122,6 +209,26 @@ body {
 .card p {
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
+}
+
+/* Card Button Styling for Symmetry */
+.card .btn {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  transition: 0.3s;
+}
+
+.card .btn:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Footer */

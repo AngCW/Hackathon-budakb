@@ -15,15 +15,26 @@
         <h1>Bridging people,<br>process, and<br>culture.</h1>
         <div class="cta-buttons">
           <a href="Dashboard/dashboard.php" class="btn primary">Manage Talents</a>
-          <button class="btn secondary">Start My Onboarding</button>
+          <a href="NewHire/welcome-onboarding.php" class="btn secondary">Start My Onboarding</a>
         </div>
       </div>
     </div>
     <div class="hero-right">
-      <video autoplay muted loop playsinline>
-        <source src="assets/animation.mp4" type="video/mp4">
-        Your browser does not support video playback.
-      </video>
+      <div class="video-container">
+        <video id="heroVideo" autoplay muted loop playsinline preload="metadata">
+          <source src="assets/animation.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <div class="video-loading" id="videoLoading">
+          <div class="loading-spinner"></div>
+          <p>Loading animation...</p>
+        </div>
+        <div class="video-error" id="videoError" style="display: none;">
+          <div class="error-icon">⚠️</div>
+          <p>Video failed to load</p>
+          <button onclick="retryVideo()" class="retry-btn">Retry</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -35,13 +46,13 @@
         <div class="icon">icon</div>
         <h3>For Managers</h3>
         <p>Manage onboarding, track progress, and mentor new hires.</p>
-        <button class="btn">Access New Hire View</button>
+        <a href="Dashboard/dashboard.php" class="btn">Access New Hire View</a>
       </div>
       <div class="card">
         <div class="icon">icon</div>
         <h3>For New Hires</h3>
         <p>Start your onboarding journey with schedules and AI guidance.</p>
-        <button class="btn">Access Manager Dashboard</button>
+        <a href="NewHire/welcome-onboarding.php" class="btn">Access Manager Dashboard</a>
       </div>
     </div>
   </section>
