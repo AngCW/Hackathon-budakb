@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talearn Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <span class="logo">✿ talearn</span>
+        <h1>Welcome, Manager1</h1>
+      </div>
+      <div class="header-right">
+        <a href="#" class="pill">Onboarding</a>
+        <a href="#" class="pill">Inbox</a>
+        <a href="#" class="pill">Tasks</a>
+      </div>
+    </header>
 
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+      <!-- Content Area -->
+      <section class="content-area">
+        <div class="cards-row">
+          <div class="card profile-card">
+            <div class="card-title">profile</div>
+            <div class="avatar-wrap">
+              <div class="avatar-ring">
+                <img src="https://i.pravatar.cc/160?img=47" alt="Manager1" class="avatar-img">
+              </div>
+            </div>
+            <div class="name">Manager1</div>
+            <div class="role">Hiring Manager</div>
+            <div class="stats">
+              <div class="stat"><span class="ic">👥</span><span>7</span></div>
+              <div class="stat"><span class="ic">✉️</span><span>3</span></div>
+              <div class="stat"><span class="ic">📈</span><span>34%</span></div>
+            </div>
+          </div>
+
+          <div class="card metric-card gradient-pink">
+            <div class="metric-label"><span>Prioritized</span><span>Task</span></div>
+            <div class="metric-value">40%</div>
+            <div class="metric-sub">Avg.completed</div>
+          </div>
+
+          <div class="card metric-card gradient-blue">
+            <div class="metric-label"><span>Additional</span><span>Task</span></div>
+            <div class="metric-value">20%</div>
+            <div class="metric-sub">Avg.completed</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
