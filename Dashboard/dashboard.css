@@ -116,7 +116,7 @@ body {
   min-height: 300px;
 }
 
-.card-title { text-transform: lowercase; color: #666; margin-bottom: 0.75rem; }
+.card-title { text-transform: lowercase; color: #666; margin-bottom: 0.75rem; font-weight: bold;}
 
 .avatar-wrap { display:flex; justify-content:center; }
 .avatar-ring {

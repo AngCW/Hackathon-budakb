@@ -15,7 +15,7 @@
         <h1>Welcome, Manager1</h1>
       </div>
       <div class="header-right">
-        <a href="#" class="pill">Onboarding</a>
+        <a href="../Onboarding/onboarding.php" class="pill">Onboarding</a>
         <a href="#" class="pill">Inbox</a>
         <a href="#" class="pill">Tasks</a>
       </div>
