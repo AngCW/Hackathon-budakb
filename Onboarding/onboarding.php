@@ -5,31 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talearn Onboarding</title>
   <link rel="stylesheet" href="onboarding.css">
-</head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="../logo.png">
+  </head>
 <body>
-  <div class="onboarding-container">
-    <div class="onboarding-card">
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 0%"></div>
-      </div>
-      
-      <div class="onboarding-content">
-        <h1>Welcome to your onboarding journey</h1>
-        <p>What should we call you?</p>
-        
-        <form id="name-form">
-          <div class="input-group">
-            <input type="text" id="user-name" placeholder="Enter your name" required>
-          </div>
-          <button type="submit" class="continue-btn">Continue</button>
-        </form>
-      </div>
-      
-      <div class="onboarding-footer">
-        <span class="logo">✿ talearn</span>
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">✿ talearn</span>
+      <span class="dash">—</span>
+      <span class="view">View Onboarding</span>
+    </div>
+    <nav class="nav-pills">
+      <a href="../Dashboard/dashboard.php" class="pill">Dashboard</a>
+      <a href="#" class="pill">Inbox</a>
+      <a href="#" class="pill">Tasks</a>
+    </nav>
+  </header>
+
+  <main class="onboarding">
+    <div class="search-row">
+      <div class="searchbar">
+        <input type="search" placeholder="Search by Talent’s Name or Mentor’s Name" aria-label="Search">
+        <button class="filter" aria-label="Filter" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5z" stroke="#8e8e8e" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
-  </div>
+
+    <section class="cards-grid">
+      <!-- Card 1 -->
+      <article class="talent-card">
+        <div class="mentor">Mentor1</div>
+        <div class="avatar-block">
+          <div class="progress-ring" data-percent="72">
+            <div class="ring"><img src="https://i.pravatar.cc/120?img=11" alt="Talent1"></div>
+          </div>
+          <div class="mentor-badges"><span>M</span><span>M</span></div>
+        </div>
+        <div class="person">
+          <div class="name">Talent1</div>
+          <div class="title">Title1</div>
+        </div>
+        <div class="stats"><span>4</span><span>3</span><span>34%</span></div>
+        <div class="actions"><button class="btn tiny">Give Feedback</button><button class="btn tiny light">Mentee Feedback</button></div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="talent-card">
+        <div class="mentor">Mentor2</div>
+        <div class="avatar-block">
+          <div class="progress-ring" data-percent="65">
+            <div class="ring"><img src="https://i.pravatar.cc/120?img=32" alt="Talent2"></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="name">Talent2</div>
+          <div class="title">Title2</div>
+        </div>
+        <div class="stats"><span>3</span><span>2</span><span>36%</span></div>
+        <div class="feedback-chip">Mentee feedback: Mentor is very helpful, I am looking forward to working with my teammates!</div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="talent-card">
+        <div class="mentor">Mentor1</div>
+        <div class="avatar-block">
+          <div class="progress-ring" data-percent="40">
+            <div class="ring"><img src="https://i.pravatar.cc/120?img=66" alt="Talent3"></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="name">Talent3</div>
+          <div class="title">Title3</div>
+        </div>
+        <div class="stats"><span>1</span><span>3</span><span>34%</span></div>
+        <div class="feedback-chip">Give feedback</div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="talent-card">
+        <div class="mentor">Unassigned</div>
+        <div class="avatar-block">
+          <div class="progress-ring" data-percent="24">
+            <div class="ring"><img src="https://i.pravatar.cc/120?img=5" alt="Talent4"></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="name">Talent4</div>
+          <div class="title">Title4</div>
+        </div>
+        <div class="stats"><span>2</span><span>1</span><span>34%</span></div>
+        <div class="actions"><button class="btn tiny">Give Feedback</button></div>
+      </article>
+
+      <!-- Card 5 (gradient) -->
+      <article class="talent-card gradient-violet">
+        <div class="mentor">Mentor3</div>
+        <div class="avatar-block">
+          <div class="progress-ring" data-percent="55">
+            <div class="ring"><img src="https://i.pravatar.cc/120?img=14" alt="Talent5"></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="name">Talent5</div>
+          <div class="title">Title5</div>
+        </div>
+        <div class="stats"><span>4</span><span>3</span><span>34%</span></div>
+        <div class="feedback-chip">Mentee feedback: Mentor is very helpful, I am looking forward to working with my teammates!</div>
+      </article>
+
+      <!-- Card 6 (gradient) -->
+      <article class="talent-card gradient-pink">
+        <div class="mentor">Mentor1</div>
+        <div class="avatar-block">
+          <div class="progress-ring" data-percent="31">
+            <div class="ring"><img src="https://i.pravatar.cc/120?img=68" alt="Talent6"></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="name">Talent6</div>
+          <div class="title">Title6</div>
+        </div>
+        <div class="stats"><span>1</span><span>3</span><span>35%</span></div>
+        <div class="feedback-chip">Mentee feedback: Mentor is very helpful, I am looking forward to working with my teammates!</div>
+      </article>
+    </section>
+
+    <section class="notes">
+      <ol>
+        <li>Onboarding (communicate, view profile, assign mentor, mentor feedback, new hire’s feedback); separate between mentor & feedback</li>
+        <li>Onboarding</li>
+      </ol>
+      <p class="question">*tell me which is the best?, especially the Mentee feedback</p>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p><span class="logo">✿ talearn</span> — Prototype Version <br> Developed by BudakB | © 2025</p>
+  </footer>
 
   <script src="onboarding.js"></script>
 </body>
