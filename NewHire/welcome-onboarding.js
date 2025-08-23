@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem('userName', name);
       
       // Navigate to document upload page
-      window.location.href = 'document-upload.php';
+      window.location.href = 'document-upload.html';
     } else {
       nameInput.focus();
       nameInput.style.borderColor = '#ff4444';
@@ -35,3 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
     this.style.borderColor = '#e0e0e0';
   });
 });
+
