@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: white;
+  min-height: 100vh;
+}
+
+/* Header */
+.topbar {
+  background: black;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Main container */
+.welcome-container {
+  display: flex;
+  min-height: calc(100vh - 80px);
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Illustration section */
+.illustration-section {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem;
+}
+
+.illustration {
+  max-width: 500px;
+  width: 100%;
+}
+
+.illustration img {
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+}
+
+/* Welcome section */
+.welcome-section {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: black;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.input-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+  transition: border-color 0.3s ease;
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: #0066ff;
+}
+
+.name-input::placeholder {
+  color: #8e8e8e;
+}
+
+.continue-btn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start;
+}
+
+.continue-btn:hover {
+  background: #333;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .welcome-container {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .illustration-section {
+    order: 2;
+    padding: 1rem;
+    justify-content: center;
+  }
+  
+  .welcome-section {
+    order: 1;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+  
+  .continue-btn {
+    align-self: center;
+  }
+  
+  .illustration {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+  
+  .topbar {
+    padding: 1rem;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+  }
+  
+  .illustration {
+    max-width: 300px;
+  }
+}
