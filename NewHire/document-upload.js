@@ -101,8 +101,8 @@ function uploadFile(file, documentId, userName) {
     formData.append('documentId', documentId);
     formData.append('userName', userName);
     
-    // Send file to PHP handler
-    fetch('upload-handler.php', {
+    // Send file to Node.js handler
+    fetch('http://localhost:3000/upload', {
         method: 'POST',
         body: formData
     })
@@ -173,8 +173,6 @@ function updateActionButtons(documentId, isUploaded) {
 function createUserFolderAndSaveFile(file) {
     const userName = localStorage.getItem('userName') || 'default_user';
     
-    // This function is now handled by the PHP backend
-    // The folder structure will be: Uploads/[userName]/documents/[filename]
     
     console.log(`User: ${userName}`);
     console.log(`File: ${file.name} (${file.size} bytes)`);
@@ -196,7 +194,7 @@ function continueToNextStep() {
     // Simulate navigation delay
     setTimeout(() => {
         // Navigate to next step (Accounts & Access)
-        // window.location.href = 'accounts-access.php';
+        // window.location.href = 'accounts-access.html';
         console.log('Navigating to next step: Accounts & Access');
     }, 2000);
 }

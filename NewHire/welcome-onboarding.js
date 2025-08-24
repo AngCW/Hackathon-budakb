@@ -35,4 +35,3 @@ document.addEventListener('DOMContentLoaded', function() {
     this.style.borderColor = '#e0e0e0';
   });
 });
-
