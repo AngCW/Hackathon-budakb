@@ -190,6 +190,9 @@ function continueToNextStep() {
         return;
     }
     
+    // Add user as talent to the onboarding system
+    addUserAsTalent();
+    
     // Show success message
     showNotification('All documents uploaded! Proceeding to next step...', 'success');
     
@@ -199,6 +202,41 @@ function continueToNextStep() {
         // window.location.href = 'accounts-access.php';
         console.log('Navigating to next step: Accounts & Access');
     }, 2000);
+}
+
+/**
+ * Add user as talent to the onboarding system
+ */
+async function addUserAsTalent() {
+    const userName = localStorage.getItem('userName');
+    if (!userName) {
+        console.error('No user name found');
+        return;
+    }
+    
+    try {
+        const response = await fetch('../Onboarding/talents-api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userName: userName,
+                title: 'New Hire',
+                mentor: 'Unassigned',
+                progress: 50 // Progress after completing document upload
+            })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            console.log('User added as talent:', result.message);
+        } else {
+            console.error('Failed to add user as talent:', result.error);
+        }
+    } catch (error) {
+        console.error('Error adding user as talent:', error);
+    }
 }
 
 function showNotification(message, type) {
