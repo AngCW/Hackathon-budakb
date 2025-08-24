@@ -70,10 +70,19 @@ if (!is_dir($documentDir)) {
     }
 }
 
-// Generate unique filename
+// Preserve original filename with conflict resolution
 $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-$uniqueFilename = 'document_' . $documentId . '_' . time() . '.' . $fileExtension;
-$uploadPath = $documentDir . '/' . $uniqueFilename;
+$originalFilename = pathinfo($file['name'], PATHINFO_FILENAME);
+$filename = $originalFilename . '.' . $fileExtension;
+$uploadPath = $documentDir . '/' . $filename;
+
+// Handle filename conflicts by adding a counter if file already exists
+$counter = 1;
+while (file_exists($uploadPath)) {
+    $filename = $originalFilename . '_' . $counter . '.' . $fileExtension;
+    $uploadPath = $documentDir . '/' . $filename;
+    $counter++;
+}
 
 // Move uploaded file
 if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
@@ -81,7 +90,7 @@ if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
     $response = [
         'success' => true,
         'message' => 'File uploaded successfully',
-        'filename' => $uniqueFilename,
+        'filename' => $filename,
         'originalName' => $file['name'],
         'size' => $file['size'],
         'type' => $file['type'],
@@ -92,7 +101,7 @@ if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
     ];
     
     // Log the upload
-    $logEntry = date('Y-m-d H:i:s') . " - User: $userName, Document: $documentId, File: " . $file['name'] . ", Size: " . $file['size'] . " bytes, Path: $uploadPath\n";
+    $logEntry = date('Y-m-d H:i:s') . " - User: $userName, Document: $documentId, Original File: " . $file['name'] . ", Saved As: $filename, Size: " . $file['size'] . " bytes, Path: $uploadPath\n";
     file_put_contents($userDir . '/upload_log.txt', $logEntry, FILE_APPEND | LOCK_EX);
     
     // Create a user info file
