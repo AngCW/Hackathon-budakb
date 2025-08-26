@@ -1,43 +1,44 @@
 <?php
-// Talents API for Onboarding Page
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-// Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Log all requests for debugging
-error_log("Talents API called: " . $_SERVER['REQUEST_METHOD'] . " - " . date('Y-m-d H:i:s'));
 
-// Define the talents data file
-$talentsFile = '../Uploads/talents.json';
 
-// Create uploads directory if it doesn't exist
-$uploadsDir = '../Uploads';
+$talentsFile = __DIR__ . '/../Uploads/talents.json';
+
+$uploadsDir = __DIR__ . '/../Uploads';
 if (!is_dir($uploadsDir)) {
     mkdir($uploadsDir, 0755, true);
 }
 
-// Initialize talents file if it doesn't exist
 if (!file_exists($talentsFile)) {
     file_put_contents($talentsFile, json_encode([], JSON_PRETTY_PRINT));
 }
 
-// Handle different HTTP methods
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        getTalents();
+        if (isset($_GET['action']) && strtolower($_GET['action']) === 'delete' && isset($_GET['id']) && isset($_GET['userName'])) {
+            removeTalent();
+        } else {
+            getTalents();
+        }
         break;
     case 'POST':
-        addTalent();
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (isset($input['action']) && strtolower($input['action']) === 'delete') {
+            removeTalent();
+        } else {
+            addTalent();
+        }
         break;
     case 'DELETE':
         removeTalent();
@@ -51,10 +52,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function getTalents() {
     global $talentsFile;
     
-    error_log("Getting talents from: $talentsFile");
-    
     if (!file_exists($talentsFile)) {
-        error_log("Talents file does not exist, returning empty array");
         echo json_encode([]);
         return;
     }
@@ -64,20 +62,15 @@ function getTalents() {
         $talents = [];
     }
     
-    error_log("Returning " . count($talents) . " talents");
     echo json_encode($talents);
 }
 
 function addTalent() {
     global $talentsFile;
     
-    // Get POST data
     $input = json_decode(file_get_contents('php://input'), true);
     
-    error_log("Adding talent with data: " . json_encode($input));
-    
     if (!$input || !isset($input['userName'])) {
-        error_log("Missing required fields for talent");
         http_response_code(400);
         echo json_encode(['error' => 'Missing required fields']);
         return;
@@ -88,7 +81,6 @@ function addTalent() {
     $mentor = $input['mentor'] ?? 'Unassigned';
     $progress = $input['progress'] ?? 0;
     
-    // Load existing talents
     $talents = [];
     if (file_exists($talentsFile)) {
         $talents = json_decode(file_get_contents($talentsFile), true);
@@ -97,7 +89,6 @@ function addTalent() {
         }
     }
     
-    // Check if talent already exists
     $talentExists = false;
     foreach ($talents as $talent) {
         if ($talent['userName'] === $userName) {
@@ -107,11 +98,9 @@ function addTalent() {
     }
     
     if (!$talentExists) {
-        // Generate random avatar image
         $avatarId = rand(1, 70);
         $avatarUrl = "https://i.pravatar.cc/120?img=" . $avatarId;
         
-        // Create new talent
         $newTalent = [
             'id' => uniqid(),
             'userName' => $userName,
@@ -125,12 +114,11 @@ function addTalent() {
                 'messages' => rand(1, 5),
                 'completion' => $progress
             ],
-            'feedback' => 'Mentor is very helpful, I am looking forward to working with my teammates!'
+            'feedback' => ''
         ];
         
         $talents[] = $newTalent;
         
-        // Save to file
         if (file_put_contents($talentsFile, json_encode($talents, JSON_PRETTY_PRINT))) {
             error_log("Talent added successfully: $userName");
             echo json_encode([
@@ -156,8 +144,14 @@ function addTalent() {
 function removeTalent() {
     global $talentsFile;
     
-    // Get DELETE data
-    $input = json_decode(file_get_contents('php://input'), true);
+    $raw = file_get_contents('php://input');
+    $input = json_decode($raw, true);
+    if (!$input && !empty($_POST)) {
+        $input = $_POST;
+    }
+    if (!$input && !empty($_GET) && isset($_GET['action']) && strtolower($_GET['action']) === 'delete') {
+        $input = $_GET;
+    }
     
     error_log("Removing talent with data: " . json_encode($input));
     
@@ -171,7 +165,6 @@ function removeTalent() {
     $talentId = $input['id'];
     $userName = $input['userName'];
     
-    // Load existing talents
     $talents = [];
     if (file_exists($talentsFile)) {
         $talents = json_decode(file_get_contents($talentsFile), true);
@@ -180,7 +173,6 @@ function removeTalent() {
         }
     }
     
-    // Find and remove the talent
     $talentFound = false;
     foreach ($talents as $key => $talent) {
         if ($talent['id'] === $talentId && $talent['userName'] === $userName) {
@@ -191,16 +183,24 @@ function removeTalent() {
     }
     
     if ($talentFound) {
-        // Reindex array after removal
+        $userFolderDeleted = deleteUserFolder($userName);
+        
         $talents = array_values($talents);
         
-        // Save updated talents to file
         if (file_put_contents($talentsFile, json_encode($talents, JSON_PRETTY_PRINT))) {
-            error_log("Talent removed successfully: $userName (ID: $talentId)");
+            $message = "Talent removed successfully: $userName (ID: $talentId)";
+            if ($userFolderDeleted) {
+                $message .= " - User folder deleted";
+            } else {
+                $message .= " - User folder deletion failed";
+            }
+            
+            error_log($message);
             echo json_encode([
                 'success' => true,
                 'message' => 'Talent removed successfully',
-                'removedTalent' => $userName
+                'removedTalent' => $userName,
+                'userFolderDeleted' => $userFolderDeleted
             ]);
         } else {
             error_log("Failed to save updated talents file after removal");
@@ -212,5 +212,58 @@ function removeTalent() {
         http_response_code(404);
         echo json_encode(['error' => 'Talent not found']);
     }
+}
+
+function deleteUserFolder($userName) {
+    $uploadsDir = __DIR__ . '/../Uploads';
+    $userDir = $uploadsDir . '/' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $userName);
+    
+    if (!is_dir($userDir)) {
+        error_log("User directory does not exist: $userDir");
+        return true; 
+    }
+    
+    try {
+        $deleted = deleteDirectoryRecursive($userDir);
+        
+        if ($deleted) {
+            error_log("User folder deleted successfully: $userDir");
+            return true;
+        } else {
+            error_log("Failed to delete user folder: $userDir");
+            return false;
+        }
+    } catch (Exception $e) {
+        error_log("Error deleting user folder: " . $e->getMessage());
+        return false;
+    }
+}
+
+function deleteDirectoryRecursive($dir) {
+    if (!is_dir($dir)) {
+        return false;
+    }
+    
+    $files = array_diff(scandir($dir), array('.', '..'));
+    
+    foreach ($files as $file) {
+        $path = $dir . DIRECTORY_SEPARATOR . $file;
+        
+        if (is_dir($path)) {
+            deleteDirectoryRecursive($path);
+        } else {
+            if (!unlink($path)) {
+                error_log("Failed to delete file: $path");
+                return false;
+            }
+        }
+    }
+    
+    if (!rmdir($dir)) {
+        error_log("Failed to delete directory: $dir");
+        return false;
+    }
+    
+    return true;
 }
 ?>

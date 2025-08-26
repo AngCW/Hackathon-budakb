@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Setup</title>
+  <link rel="stylesheet" href="ITSetup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="../logo.png">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">✿ talearn</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="progress-stepper">
+      <div class="step">
+        <div class="step-circle">1</div>
+        <div class="step-label">Upload documents</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-circle">2</div>
+        <div class="step-label">Accounts & access</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step active">
+        <div class="step-circle">3</div>
+        <div class="step-label">IT setup</div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <img src="../assets/NewHire2.png" alt="IT" />
+      <h1 id="itTitle">IT is preparing your devices</h1>
+      <p id="itSubtitle">Just a moment...</p>
+      <button id="checkBtn" class="btn-primary" style="display:none">Check status</button>
+      <button id="continueBtn" class="btn-primary" style="display:none;margin-top:10px">Continue</button>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const user = params.get('user') || '';
+      const title = document.getElementById('itTitle');
+      const sub = document.getElementById('itSubtitle');
+      const checkBtn = document.getElementById('checkBtn');
+      const continueBtn = document.getElementById('continueBtn');
+      async function refreshStatus() {
+        if (!user) return;
+        try {
+          const res = await fetch(`it-status-api.php?user=${encodeURIComponent(user)}&_= ${Date.now()}`);
+          const data = await res.json();
+          if (data.prepared && data.ticket) {
+            title.textContent = 'Your IT devices are ready';
+            sub.innerHTML = `You can collect them at the IT department<br>with ticket number #${data.ticket}`;
+            if (checkBtn) checkBtn.style.display = 'none';
+            if (continueBtn) continueBtn.style.display = 'inline-block';
+          } else {
+            title.textContent = 'IT is preparing your devices';
+            sub.textContent = 'Just a moment...';
+            if (checkBtn) checkBtn.style.display = 'inline-block';
+            if (continueBtn) continueBtn.style.display = 'none';
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
+      refreshStatus();
+      setInterval(refreshStatus, 5000);
+      if (checkBtn) {
+        checkBtn.addEventListener('click', () => {
+          refreshStatus();
+        });
+      }
+      if (continueBtn) {
+        continueBtn.addEventListener('click', () => {
+          window.location.href = `welcome-onboarding.html?user=${encodeURIComponent(user)}`;
+        });
+      }
+    });
+  </script>
+</body>
+</html>

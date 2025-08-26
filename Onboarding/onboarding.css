@@ -1,8 +1,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#ffffff;--fg:#0b0b0b;--muted:#a1a1a1;--brand:#000000}
-body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);padding-bottom:56px}
 
-/* Top bar */
 .topbar{position:fixed;top:0;left:0;right:0;background:#0d0d0d;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;z-index:10}
 .topbar .brand{font-weight:700;letter-spacing:.2px;font-size:1.2rem}
 .topbar-left{display:flex;align-items:center;gap:1rem}
@@ -10,8 +9,6 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial
 .nav-pills{display:flex;align-items:center;gap:1.5rem}
 .pill{display:inline-block;padding:0.4rem 0.9rem;border-radius:20px;background:#fff;color:#000;text-decoration:none;font-weight:600}
 
-/* Layout */
-/* Search and grid layout */
 .onboarding{min-height:100vh;padding-top:84px}
 .search-row{display:flex;justify-content:center;margin:24px 0}
 .searchbar{position:relative;display:flex;align-items:center;gap:10px;width:760px;max-width:90%;background:#f2f2f2;border-radius:22px;padding:10px 16px}
@@ -39,38 +36,23 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial
 .btn.tiny.light{background:#f2f2f2;color:#222}
 .feedback-chip{margin-top:8px;background:#ffffffd8;border:1px solid #ececec;border-radius:14px;padding:8px 10px;font-size:11px;color:#333}
 
-/* Card Actions */
+.actions-row{display:flex;gap:10px;margin-top:8px}
+.btn.small{font-size:12px;padding:8px 16px;border-radius:20px;border:none;background:#0d0d0d;color:#fff;cursor:pointer;font-weight:500;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.btn.small:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+.btn.small.light{background:#f2f2f2;color:#222;border:1px solid #e0e0e0}
+.btn.small.light:hover{background:#e8e8e8;border-color:#d0d0d0}
+
 .card-actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
 }
 
-.btn-remove {
-  background: #ff4757;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  padding: 0;
-}
 
-.btn-remove:hover {
-  background: #ff3742;
-}
+.btn-delete{background:#ff4757;color:#fff;border:none;border-radius:20px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:12px;transition:background-color .2s, transform .1s}
+.btn-delete:hover{background:#ff3742}
+.btn-delete:active{transform:translateY(1px)}
 
-.btn-remove svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* Notification Animations */
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -97,7 +79,6 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial
 .notes ol{font-size:12px;color:#222;margin-left:16px}
 .notes .question{text-align:center;margin-top:16px}
 
-/* No Talents Message */
 .no-talents-message {
   grid-column: 1 / -1;
   display: flex;
@@ -145,8 +126,21 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial
   background: #333;
 }
 
-.page-footer{position:fixed;left:0;right:0;bottom:0;background:#000;color:#fff;text-align:center;padding:12px 10px;font-size:12px}
+.page-footer{position:fixed;left:0;right:0;bottom:0;background:#000;color:#fff;text-align:center;padding:12px 10px;font-size:12px;z-index:1000;box-shadow:0 -2px 8px rgba(0,0,0,0.15)}
 
-/* Responsive */
+/* Add Manager button aligned right */
+.manager-actions{max-width:1120px;margin:0 auto 10px;padding:0 20px;display:flex;justify-content:flex-end}
+
+/* Modal styling */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:2000}
+.modal-backdrop[aria-hidden="false"]{display:flex}
+.modal{width:560px;max-width:92%;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.25);overflow:hidden}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eee;background:#fafafa}
+.modal-close{background:transparent;border:none;font-size:20px;cursor:pointer}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px}
+.form-grid label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#555}
+.form-grid input,.form-grid select{padding:10px 12px;border:1px solid #ddd;border-radius:8px;outline:none}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;padding:10px 16px;border-top:1px solid #eee;background:#fafafa}
+
 @media (max-width: 900px){.cards-grid{grid-template-columns:1fr 1fr}.searchbar{width:100%}}
 @media (max-width: 600px){.cards-grid{grid-template-columns:1fr}}

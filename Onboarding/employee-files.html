@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Files - Talearn</title>
+  <link rel="stylesheet" href="employee-files.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="../logo.png">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">✿ talearn</span>
+      <span class="dash">—</span>
+      <span class="view">Employee Files</span>
+    </div>
+    <nav class="nav-pills">
+      <a href="onboarding.html" class="pill">← Back to Onboarding</a>
+      <a href="../Dashboard/dashboard.html" class="pill">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="files-container">
+    <div class="employee-header">
+      <div class="employee-info">
+        <h1 id="employeeName">Employee Files</h1>
+        <p id="employeeDetails">Viewing uploaded documents and files</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary" onclick="refreshFiles()">Refresh Files</button>
+        <button class="btn-secondary" onclick="downloadAll()">Download All</button>
+      </div>
+    </div>
+
+    <div class="files-section">
+      <div class="section-header">
+        <h2>Employee Profile</h2>
+      </div>
+      <div id="profileBlock" class="profile-block" style="display:none"></div>
+    </div>
+
+    <div class="files-section">
+      <div class="section-header">
+        <h2>Uploaded Documents</h2>
+        <span class="file-count" id="fileCount">0 files</span>
+      </div>
+      
+      <div class="files-grid" id="filesGrid">
+        <div class="loading">Loading files...</div>
+      </div>
+    </div>
+
+    <div class="no-files-message" id="noFilesMessage" style="display: none;">
+      <div class="no-files-content">
+        <div class="no-files-icon">📁</div>
+        <h3>No Files Found</h3>
+        <p>This employee hasn't uploaded any documents yet.</p>
+        <button class="btn-primary" onclick="refreshFiles()">Refresh</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <p><span class="logo">✿ talearn</span> — Prototype Version <br> Developed by BudakB | © 2025</p>
+  </footer>
+
+  <script src="employee-files.js"></script>
+</body>
+</html>

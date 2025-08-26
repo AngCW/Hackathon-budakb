@@ -1,0 +1,30 @@
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#ffffff;--fg:#0b0b0b;--muted:#6c757d}
+body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);padding-bottom:56px}
+.topbar{position:fixed;top:0;left:0;right:0;background:#0d0d0d;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;z-index:10}
+.topbar-left{display:flex;align-items:center;gap:1rem}
+.logo{font-weight:bold}
+.nav-pills{display:flex;gap:1rem}
+.pill{background:#fff;color:#000;text-decoration:none;padding:.4rem .9rem;border-radius:20px;font-weight:600}
+.container{min-height:100vh;padding-top:84px;max-width:880px;margin:0 auto;padding-left:1.25rem;padding-right:1.25rem}
+.progress-stepper{display:flex;justify-content:center;align-items:center;margin:3rem 0 2rem 0;gap:1rem}
+.step{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.step-circle{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1.1rem;background:#f0f0f0;border:2px solid #e0e0e0;color:#666}
+.step.active .step-circle{background:#e0e0e0;border-color:#ccc;color:#000}
+.step-label{font-size:.9rem;color:#666;text-align:center;font-weight:500}
+.step.active .step-label{color:#000;font-weight:600}
+.step-line{width:80px;height:2px;background:#e0e0e0}
+.card{background:#fff;border:1px solid #eee;border-radius:16px;padding:1.5rem;margin:2rem 0;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.card h1{font-size:1.4rem;margin-bottom:.25rem}
+.muted{color:var(--muted);margin-bottom:1rem}
+.form{display:flex;flex-direction:column;gap:1rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field{display:flex;flex-direction:column;gap:.5rem}
+.field label{font-weight:600}
+.field input,.field select,.field textarea{border:1px solid #ddd;border-radius:10px;padding:.75rem;font-size:14px}
+.actions{display:flex;gap:.75rem;margin-top:2rem;justify-content:center}
+.btn-primary{background:#000;color:#fff;border:none;padding:.9rem 2rem;border-radius:999px;font-weight:700;cursor:pointer}
+.save-status{background:#e9f7ef;color:#2e7d32;border:1px solid #c8e6c9;border-radius:10px;padding:.75rem 1rem;margin-bottom:.5rem;font-size:14px}
+.btn-secondary{background:#f2f2f2;color:#222;text-decoration:none;padding:.75rem 1.25rem;border-radius:999px;font-weight:600;cursor:pointer}
+.page-footer{position:fixed;left:0;right:0;bottom:0;background:#000;color:#fff;text-align:center;padding:12px 10px;font-size:12px}
+@media (max-width:700px){.grid{grid-template-columns:1fr}}

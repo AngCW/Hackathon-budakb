@@ -8,9 +8,9 @@ body {
   font-family: 'Inter', sans-serif;
   background: white;
   min-height: 100vh;
+  padding-bottom: 56px;
 }
 
-/* Header */
 .topbar {
   background: black;
   padding: 1rem 2rem;
@@ -31,14 +31,12 @@ body {
   font-weight: 600;
 }
 
-/* Main container */
 .upload-container {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Progress Stepper */
 .progress-stepper {
   display: flex;
   justify-content: center;
@@ -92,7 +90,6 @@ body {
   background: #e0e0e0;
 }
 
-/* Upload Section */
 .upload-section {
   background: white;
   border-radius: 12px;
@@ -107,7 +104,6 @@ body {
   margin-bottom: 2rem;
 }
 
-/* Documents Table */
 .documents-table {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -199,7 +195,6 @@ body {
   text-decoration: underline;
 }
 
-/* Continue Button */
 .continue-btn {
   background: black;
   color: white;
@@ -223,7 +218,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -275,7 +269,6 @@ body {
   padding: 1.5rem;
 }
 
-/* File Input */
 .file-input-container {
   margin-bottom: 1.5rem;
 }
@@ -325,7 +318,6 @@ body {
   color: #333;
 }
 
-/* Modal Actions */
 .modal-actions {
   display: flex;
   gap: 1rem;
@@ -363,7 +355,6 @@ body {
   background: #0052cc;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .upload-container {
     padding: 1rem;

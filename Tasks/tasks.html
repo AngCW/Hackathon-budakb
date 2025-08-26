@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talearn Tasks</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../Dashboard/dashboard.css">
+  <link rel="stylesheet" href="tasks.css">
+</head>
+<body>
+  <header class="dashboard-header">
+    <div class="header-left">
+      <span class="logo">✿ talearn</span>
+      <h1>Tasks</h1>
+    </div>
+    <div class="header-right">
+      <a href="../Onboarding/onboarding.html" class="pill">Onboarding</a>
+      <a href="../Inbox/inbox.html" class="pill">Inbox</a>
+      <a href="../Dashboard/dashboard.html" class="pill">Dashboard</a>
+    </div>
+  </header>
+
+  <main class="tasks">
+    <section class="task-controls">
+      <form id="taskForm" class="task-form">
+        <input type="text" id="taskTitle" placeholder="Task title" required>
+        <input type="text" id="taskAssignee" placeholder="Assignee (optional)">
+        <select id="taskPriority">
+          <option value="Medium">Priority: Medium</option>
+          <option value="High">Priority: High</option>
+          <option value="Low">Priority: Low</option>
+        </select>
+        <button type="submit" class="pill">Add Task</button>
+      </form>
+    </section>
+
+    <section class="task-list" id="taskList"></section>
+  </main>
+
+  <footer class="page-footer">
+    <p><span class="logo">✿ talearn</span> — Prototype Version <br> Developed by BudakB | © 2025</p>
+  </footer>
+
+  <script src="tasks.js"></script>
+</body>
+</html>
+
+

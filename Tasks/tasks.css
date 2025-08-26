@@ -1,0 +1,22 @@
+body{font-family:"Arial",sans-serif;background:#fff;color:#000}
+.tasks{min-height:100vh;padding-top:84px}
+.task-controls{max-width:1000px;margin:20px auto 0;padding:0 20px}
+.task-form{display:grid;grid-template-columns:2fr 1.5fr 1fr auto;gap:10px}
+.task-form input,.task-form select{padding:10px 12px;border:1px solid #e0e0e0;border-radius:20px;background:#f2f2f2;outline:none}
+.task-list{max-width:1000px;margin:20px auto;padding:0 20px;display:flex;flex-direction:column;gap:12px}
+.task-item{display:flex;justify-content:space-between;align-items:center;background:#f9f9f9;border:1px solid #eaeaea;border-radius:12px;padding:12px 14px}
+.task-meta{display:flex;align-items:center;gap:10px}
+.task-title{font-weight:700}
+.chip{padding:4px 10px;border-radius:16px;font-size:12px}
+.chip.high{background:#ff6b6b;color:#fff}
+.chip.medium{background:#ffd166;color:#333}
+.chip.low{background:#06d6a0;color:#fff}
+.task-actions{display:flex;gap:8px}
+.btn-outline{background:#fff;border:1px solid #ddd;border-radius:16px;padding:6px 10px;cursor:pointer}
+.btn-delete{background:#ff4757;color:#fff;border:none;border-radius:16px;padding:6px 12px;cursor:pointer}
+
+#taskForm .pill{display:inline-block !important;padding:0.4rem 0.9rem !important;border-radius:20px !important;background:#fff !important;color:#000 !important;text-decoration:none !important;font-weight:600 !important;border:none !important;cursor:pointer !important}
+
+@media(max-width:800px){.task-form{grid-template-columns:1fr}}
+
+

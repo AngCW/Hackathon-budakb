@@ -1,17 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Load talents from API
   loadTalents();
   
-  // Set up search functionality
   setupSearch();
+  setupAddManager();
   
-  // Set up auto-refresh every 10 seconds
   setInterval(loadTalents, 10000);
 });
 
-/**
- * Load talents from the API and display them
- */
 async function loadTalents() {
   try {
     const response = await fetch('talents-api.php');
@@ -28,19 +23,14 @@ async function loadTalents() {
   }
 }
 
-/**
- * Display talents as cards
- */
 function displayTalents(talents) {
   const container = document.getElementById('talentCardsContainer');
   const noTalentsMessage = document.getElementById('noTalentsMessage');
   
-  // Hide no talents message
   if (noTalentsMessage) {
     noTalentsMessage.style.display = 'none';
   }
   
-  // Clear container and add talent cards
   container.innerHTML = '';
   
   talents.forEach((talent, index) => {
@@ -48,27 +38,19 @@ function displayTalents(talents) {
     container.appendChild(talentCard);
   });
   
-  // Initialize progress rings after cards are added
   initializeProgressRings();
 }
 
-/**
- * Create a talent card element
- */
 function createTalentCard(talent, index) {
   const card = document.createElement('article');
   card.className = 'talent-card';
   card.setAttribute('data-talent-id', talent.id);
   
-  // Add gradient classes for some cards
   if (index === 4) {
     card.classList.add('gradient-violet');
   } else if (index === 5) {
     card.classList.add('gradient-pink');
   }
-  
-  // Determine if this is the first card (special case)
-  const isFirstCard = index === 0;
   
   card.innerHTML = `
     <div class="mentor">${talent.mentor}</div>
@@ -86,25 +68,20 @@ function createTalentCard(talent, index) {
       <span>${talent.stats.messages}</span>
       <span>${talent.stats.completion}%</span>
     </div>
-    ${isFirstCard ? 
-      '<div class="actions"><button class="btn tiny">Give Feedback</button><button class="btn tiny light">Mentee Feedback</button></div>' :
-      `<div class="feedback-chip">Mentee feedback: ${talent.feedback}</div>`
-    }
+    <div class="actions"><button class="btn tiny">Give Feedback</button></div>
+    <div class="actions-row">
+      <button class="btn small" onclick="showUploadedFiles('${talent.userName}')">Show Uploaded Files</button>
+      <button class="btn small light" onclick="markITPrepared('${talent.userName}')">IT Device Prepared</button>
+    </div>
+    ${talent.feedback ? `<div class=\"feedback-chip\">Mentee feedback: ${escapeHtml(String(talent.feedback))}</div>` : ''}
     <div class="card-actions">
-      <button class="btn-remove" onclick="removeTalent('${talent.id}', '${talent.userName}')" title="Remove Talent">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+      <button class="btn-delete" onclick="removeTalent('${talent.id}', '${talent.userName}')" title="Remove Employee">Delete</button>
     </div>
   `;
   
   return card;
 }
 
-/**
- * Show no talents message
- */
 function showNoTalentsMessage() {
   const container = document.getElementById('talentCardsContainer');
   const noTalentsMessage = document.getElementById('noTalentsMessage');
@@ -114,9 +91,6 @@ function showNoTalentsMessage() {
   }
 }
 
-/**
- * Initialize progress rings with CSS custom properties
- */
 function initializeProgressRings() {
   document.querySelectorAll('.progress-ring').forEach(el => {
     const pct = Number(el.getAttribute('data-percent')) || 0;
@@ -124,9 +98,30 @@ function initializeProgressRings() {
   });
 }
 
-/**
- * Set up search functionality
- */
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, s => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[s] || s));
+}
+
+function showUploadedFiles(userName) {
+  window.location.href = `employee-files.html?user=${encodeURIComponent(userName)}`;
+}
+
+function markITPrepared(userName) {
+  const ticket = Math.floor(10000 + Math.random() * 90000);
+  fetch('../NewHire/it-status-api.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userName, prepared: true, ticket })
+  }).catch(()=>{});
+  showNotification(`IT device prepared for ${userName}. Ticket #${ticket}`, 'success');
+}
+
 function setupSearch() {
   const searchInput = document.querySelector('.searchbar input');
   const filterBtn = document.querySelector('.filter');
@@ -140,25 +135,17 @@ function setupSearch() {
   }
 }
 
-/**
- * Handle search input
- */
 function handleSearch(event) {
   const searchTerm = event.target.value.toLowerCase().trim();
   
   if (searchTerm === '') {
-    // Show all talents if search is empty
     loadTalents();
     return;
   }
   
-  // Filter talents based on search term
   filterTalents(searchTerm);
 }
 
-/**
- * Filter talents based on search term
- */
 async function filterTalents(searchTerm) {
   try {
     const response = await fetch('talents-api.php');
@@ -178,13 +165,9 @@ async function filterTalents(searchTerm) {
       showNoSearchResults(searchTerm);
     }
   } catch (error) {
-    console.error('Error filtering talents:', error);
   }
 }
 
-/**
- * Show no search results message
- */
 function showNoSearchResults(searchTerm) {
   const container = document.getElementById('talentCardsContainer');
   container.innerHTML = `
@@ -192,47 +175,118 @@ function showNoSearchResults(searchTerm) {
       <div class="no-talents-content">
         <div class="no-talents-icon">🔍</div>
         <h3>No Results Found</h3>
-        <p>No talents found matching "${searchTerm}". Try a different search term.</p>
-        <button class="btn-primary" onclick="loadTalents()">Show All Talents</button>
+        <p>No employees found matching "${searchTerm}". Try a different search term.</p>
+        <button class="btn-primary" onclick="loadTalents()">Show All Employees</button>
       </div>
     </div>
   `;
 }
 
-/**
- * Handle filter button click
- */
 function handleFilter() {
-  // This could be expanded to show filter options
   console.log('Filter button clicked');
-  // For now, just reload all talents
   loadTalents();
 }
 
-/**
- * Remove a talent from the system
- */
+function setupAddManager() {
+  const openBtn = document.getElementById('addManagerBtn');
+  const modal = document.getElementById('addManagerModal');
+  const closeBtn = document.getElementById('closeAddManager');
+  const cancelBtn = document.getElementById('cancelAddManager');
+  const form = document.getElementById('addManagerForm');
+
+  function open() { modal.setAttribute('aria-hidden', 'false'); }
+  function close() { modal.setAttribute('aria-hidden', 'true'); form.reset(); }
+
+  if (openBtn) openBtn.addEventListener('click', open);
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  if (cancelBtn) cancelBtn.addEventListener('click', close);
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const name = (formData.get('name') || '').toString().trim();
+      const age = Number(formData.get('age'));
+      const gender = (formData.get('gender') || '').toString();
+      const department = (formData.get('department') || '').toString().trim();
+      if (!name || !age || !gender || !department) return;
+
+      // Reuse talents API to create a manager-like card
+      const payload = {
+        userName: name,
+        title: `${department} Manager` ,
+        mentor: gender,
+        progress: 0
+      };
+
+      try {
+        const res = await fetch('talents-api.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data && (data.success || data.talent)) {
+          // Also persist manager in managers.json for Inbox
+          try {
+            await fetch('managers-api.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, role: `${department} Manager` })
+            });
+          } catch (e) {
+            console.warn('Failed to save manager to managers.json', e);
+          }
+          close();
+          showNotification(`Manager ${name} added`, 'success');
+          loadTalents();
+        } else {
+          showNotification('Failed to add manager', 'error');
+        }
+      } catch(err) {
+        console.error(err);
+        showNotification('Failed to add manager', 'error');
+      }
+    });
+  }
+}
+
 async function removeTalent(talentId, userName) {
-  if (!confirm(`Are you sure you want to remove ${userName} from the talents list?`)) {
+  if (!confirm(`Are you sure you want to remove ${userName} from the employees list?`)) {
     return;
   }
   
   try {
-    const response = await fetch('talents-api.php', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: talentId,
-        userName: userName
-      })
-    });
+    let response;
+    const query = new URLSearchParams({ action: 'delete', id: talentId, userName, _: Date.now().toString() }).toString();
+    response = await fetch(`talents-api.php?${query}`, { method: 'GET', cache: 'no-store', headers: { 'Cache-Control': 'no-store' } });
+    if (!response || !response.ok) {
+      response = await fetch('talents-api.php', {
+        method: 'POST',
+        cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id: talentId, userName, _: Date.now() })
+      });
+    }
+    if (!response || !response.ok) {
+      response = await fetch('talents-api.php', {
+        method: 'DELETE',
+        cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: talentId, userName, _: Date.now() })
+      });
+    }
     
-    const result = await response.json();
+    let result;
+    try {
+      result = await response.json();
+    } catch (e) {
+      result = { success: false, error: `Invalid server response (status ${response ? response.status : 'N/A'})` };
+    }
+    console.log('Delete response status:', response && response.status, 'result:', result);
     
     if (result.success) {
-      // Remove the card from the UI
       const card = document.querySelector(`[data-talent-id="${talentId}"]`);
       if (card) {
         card.remove();
@@ -241,14 +295,29 @@ async function removeTalent(talentId, userName) {
       // Reload talents to refresh the display
       loadTalents();
       
-      // Show success message
-      showNotification(`${userName} has been removed from the talents list.`, 'success');
+      // Show success message with folder deletion status
+      let message = `${userName} has been removed from the employees list.`;
+    
+      
+      showNotification(message, 'success');
+
+      // Also remove from managers.json if present
+      try {
+        await fetch('managers-api.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', name: userName })
+        });
+      } catch (e) {
+        console.warn('Failed to remove from managers.json', e);
+      }
     } else {
-      showNotification(`Failed to remove talent: ${result.error}`, 'error');
+      const statusText = response ? ` (status ${response.status})` : '';
+      showNotification(`Failed to remove employee: ${result.error || 'Unknown error'}${statusText}`, 'error');
     }
   } catch (error) {
-    console.error('Error removing talent:', error);
-    showNotification('Failed to remove talent. Please try again.', 'error');
+    console.error('Error removing employee:', error);
+    showNotification(`Failed to remove employee. ${error && error.message ? error.message : 'Please try again.'}`, 'error');
   }
 }
 

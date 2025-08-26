@@ -10,7 +10,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
 .topbar {
   background: black;
   padding: 1rem 2rem;
@@ -31,7 +30,6 @@ body {
   font-weight: 600;
 }
 
-/* Main container */
 .welcome-container {
   display: flex;
   min-height: calc(100vh - 80px);
@@ -39,7 +37,6 @@ body {
   gap: 2rem;
 }
 
-/* Illustration section */
 .illustration-section {
   flex: 1;
   display: flex;
@@ -119,7 +116,6 @@ body {
   background: #333;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .welcome-container {
     flex-direction: column;

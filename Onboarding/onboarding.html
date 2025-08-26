@@ -20,14 +20,14 @@
     <nav class="nav-pills">
       <a href="../Dashboard/dashboard.html" class="pill">Dashboard</a>
       <a href="#" class="pill">Inbox</a>
-      <a href="#" class="pill">Tasks</a>
+      <a href="../Tasks/tasks.html" class="pill">Tasks</a>
     </nav>
   </header>
 
   <main class="onboarding">
     <div class="search-row">
       <div class="searchbar">
-        <input type="search" placeholder="Search by Talent's Name or Mentor's Name" aria-label="Search">
+        <input type="search" placeholder="Search by Employee's Name or Mentor's Name" aria-label="Search">
         <button class="filter" aria-label="Filter" type="button">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5z" stroke="#8e8e8e" stroke-width="1.6" stroke-join="round"/></svg>
         </button>
@@ -37,19 +37,60 @@
       </div>
     </div>
 
+    <div class="manager-actions">
+      <button class="pill" id="addManagerBtn" type="button">Add Manager</button>
+    </div>
+
     <section class="cards-grid" id="talentCardsContainer">
-      <!-- Dynamic talent cards will be loaded here -->
       <div class="no-talents-message" id="noTalentsMessage">
         <div class="no-talents-content">
           <div class="no-talents-icon">👥</div>
-          <h3>No Talents Available</h3>
-          <p>When new hires complete their onboarding process, they will appear here as talent cards.</p>
+          <h3>No Employees Available</h3>
+          <p>When new hires complete their onboarding process, they will appear here as employee cards.</p>
           <a href="../NewHire/welcome-onboarding.html" class="btn-primary">Start New Hire Onboarding</a>
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- Add Manager Modal -->
+  <div class="modal-backdrop" id="addManagerModal" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Manager</h3>
+        <button class="modal-close" type="button" id="closeAddManager">×</button>
+      </div>
+      <form id="addManagerForm">
+        <div class="form-grid">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required>
+          </label>
+          <label>
+            <span>Age</span>
+            <input type="number" name="age" min="16" max="99" required>
+          </label>
+          <label>
+            <span>Gender</span>
+            <select name="gender" required>
+              <option value="">Select</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </label>
+          <label>
+            <span>Department</span>
+            <input type="text" name="department" required>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn small light" id="cancelAddManager">Cancel</button>
+          <button type="submit" class="btn small">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <footer class="page-footer">
     <p><span class="logo">✿ talearn</span> — Prototype Version <br> Developed by BudakB | © 2025</p>
