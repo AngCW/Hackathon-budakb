@@ -18,11 +18,9 @@ Hiring and onboarding are often rushed and fragmented, especially for technical 
 - **HR Dashboard** → Automated workflows, retention analytics, and progress tracking.  
 
 ## Tech Stack
-- **Frontend:** 
-- **Backend:** 
-- **Database:** 
-- **AI/ML:** 
-- **Deployment:** 
+- **Frontend: HTML, CSS, Javascript** 
+- **Backend: PHP (handles server-side logic and processes.)** 
+- **Deployment: InfinityFree for reliable hosting** 
 
 ## Setup Instructions
 
