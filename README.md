@@ -9,8 +9,6 @@ Hiring and onboarding are often rushed and fragmented, especially for technical 
 
 **✿ TALEARN** aims to solve this by providing an **AI-powered platform** that unifies **talent acquisition and onboarding** into a single seamless experience.  
 
----
-
 ## Features
 - **Smart Onboarding Checklist** → Automated tasks, IT setup, and progress tracking.  
 - **Assessments & Tests** → Personality + technical tests to personalize onboarding.  
@@ -19,8 +17,6 @@ Hiring and onboarding are often rushed and fragmented, especially for technical 
 - **Team & Project Assignment** → Early contribution based on skills assessment.  
 - **HR Dashboard** → Automated workflows, retention analytics, and progress tracking.  
 
----
-
 ## Tech Stack
 - **Frontend:** 
 - **Backend:** 
@@ -28,18 +24,12 @@ Hiring and onboarding are often rushed and fragmented, especially for technical 
 - **AI/ML:** 
 - **Deployment:** 
 
----
-
 ## Setup Instructions
-
----
 
 ## What We've Learned
 - How to manage the development and shipping of a web application within a short timespan.
 - The importance of structured onboarding for retention and productivity.
 - How AI-driven personalization improves hiring and new hire experiences.
-
---- 
 
 ## Team Members
 - Phavanee - Researcher, Storyteller, Presenter
